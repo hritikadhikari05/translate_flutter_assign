@@ -6,6 +6,8 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:get/get.dart';
 import 'package:translator_task/controllers/homepage.controller.dart';
 import 'package:translator_task/features/homepage/widgets/languageCard.dart';
+import 'package:translator_task/features/homepage/widgets/modalBottomTextField.dart';
+import 'package:translator_task/features/homepage/widgets/shimmerLoading.dart';
 import 'package:translator_task/widgets/customText.dart';
 
 import '../utils/languages.dart';
@@ -37,71 +39,61 @@ showModalBottom(context, languages, buttonType) {
               SizedBox(
                 height: 10,
               ),
-              TextFormField(
-                controller: homeController.searchController,
-                decoration: InputDecoration(
-                    hintText: "Search language",
-                    hintStyle: TextStyle(color: Colors.white),
-                    suffixIcon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(255, 211, 202, 202)),
-                    )),
-                onChanged: (val) {
-                  homeController.searchLanguage(val);
-                },
-              ),
+              ModalBottomTextField(),
               Obx(() => Container(
                     padding: EdgeInsets.only(top: 20),
                     child: Center(
                       child: Container(
                         height: 400,
-                        child: homeController.searchQuery.isEmpty
-                            ? ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: languages.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                      onTap: () {
-                                        buttonType == "current"
-                                            ? homeController.currentLanguage
-                                                .value = languages[index]
-                                            : homeController.translateLanguage
-                                                .value = languages[index];
-                                        Get.back();
-                                        homeController.searchController.clear();
-                                      },
-                                      child: LanguageCard(
-                                        text: languages[index]['name'],
-                                      ));
-                                },
-                              )
-                            : ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: homeController.searchQuery.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      buttonType == "current"
-                                          ? homeController
-                                                  .currentLanguage.value =
-                                              homeController.searchQuery[index]
-                                          : homeController
-                                                  .translateLanguage.value =
-                                              homeController.searchQuery[index];
-                                      Get.back();
+                        child: homeController.loading.isTrue
+                            ? ShimmerLoadingList()
+                            : homeController.searchQuery.isEmpty
+                                ? ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: languages.length,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                          onTap: () {
+                                            buttonType == "current"
+                                                ? homeController.currentLanguage
+                                                    .value = languages[index]
+                                                : homeController
+                                                    .translateLanguage
+                                                    .value = languages[index];
+                                            Get.back();
+                                            homeController.searchController
+                                                .clear();
+                                          },
+                                          child: LanguageCard(
+                                            text: languages[index]['name'],
+                                          ));
                                     },
-                                    child: LanguageCard(
-                                      text: homeController.searchQuery[index]
-                                          ['name'],
-                                    ),
-                                  );
-                                },
-                              ),
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount:
+                                        homeController.searchQuery.length,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          buttonType == "current"
+                                              ? homeController
+                                                      .currentLanguage.value =
+                                                  homeController
+                                                      .searchQuery[index]
+                                              : homeController
+                                                      .translateLanguage.value =
+                                                  homeController
+                                                      .searchQuery[index];
+                                          Get.back();
+                                        },
+                                        child: LanguageCard(
+                                          text: homeController
+                                              .searchQuery[index]['name'],
+                                        ),
+                                      );
+                                    },
+                                  ),
 
                         // Column(
                         //   mainAxisAlignment: MainAxisAlignment.center,

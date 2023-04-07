@@ -62,6 +62,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
             //           : widget.homeController.translateLanguage['code'],
             //       val.toString());
             // }
+            // widget.homeController.postDetectLanguage(val.toString());
 
             setState(() {
               enteredText = val;

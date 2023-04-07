@@ -12,6 +12,7 @@ class HomepageController extends GetxController {
   RxList languages = [].obs;
   RxMap currentLanguage = {}.obs;
   RxMap translateLanguage = {}.obs;
+  RxBool loading = false.obs;
 
   TextEditingController translatedTextController = TextEditingController();
 
@@ -36,12 +37,14 @@ class HomepageController extends GetxController {
 
   //Get all languages list from api
   Future<dynamic> getAllLanguages() async {
+    loading.value = true;
     try {
       final response = await apiCalls.getAllLanguages();
       languages.value = response["data"]["languages"];
       for (int i = 0; i < languages.length; i++) {
-        getLanguageName(languages[i]['language']);
+        getLanguageName(languages[i]['language'], "langList");
       }
+      loading.value = false;
 
       return response;
     } on DioError catch (e) {
@@ -52,7 +55,24 @@ class HomepageController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
+      loading.value = false;
+
       rethrow;
+    }
+  }
+
+  //Detect language function through api calls
+  Future<dynamic> postDetectLanguage(String text) async {
+    log("message con: $text");
+    try {
+      final response = await apiCalls.postDetectLanguage(text);
+      // currentLanguage.value = response.data["data"]["detections"][0][0];
+      getLanguageName(
+          response.data["data"]["detections"][0][0]['language'], "detect");
+      // log("message api: ${response.data["data"]["detections"][0][0]['language']}");
+      return response;
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
@@ -74,13 +94,18 @@ class HomepageController extends GetxController {
   }
 
   //Get language name from the fetched data
-  String? getLanguageName(code) {
+  String? getLanguageName(code, type) {
     for (var entry in isoLangs.entries) {
       if (entry.key == code) {
         String? name = entry.value['name'];
         // log("message: $name");
         if (name != null) {
-          arry_languages.add({"name": name, "code": code});
+          if (type == "detect") {
+            currentLanguage.value = {"name": name, "code": code};
+          } else if (type == "langList") {
+            // translateLanguage.value = {"name": name, "code": code};
+            arry_languages.add({"name": name, "code": code});
+          }
         }
         // print(name);
         return name;
