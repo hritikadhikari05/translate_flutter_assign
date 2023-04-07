@@ -1,0 +1,54 @@
+[
+  {
+    "_id": "c1f2d0f6-b238-429d-813c-86c107f67da2",
+    "colId": "history",
+    "containerId": "",
+    "name": "https://google-translate1.p.rapidapi.com/language/translate/v2/languages",
+    "url": "https://google-translate1.p.rapidapi.com/language/translate/v2/?q=Hello%2C%20world!&target=es&source=en",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-04-06T15:37:42.328Z",
+    "modified": "2023-04-07T09:50:10.115Z",
+    "headers": [
+      {
+        "name": "Accept-Encoding",
+        "value": "application/gzip"
+      },
+      {
+        "name": "X-RapidAPI-Key",
+        "value": "09c1578b7amshf535bc848e0172ap1afcd7jsn6ebddddb4229"
+      },
+      {
+        "name": "X-RapidAPI-Host",
+        "value": "google-translate1.p.rapidapi.com"
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/x-www-form-urlencoded"
+      }
+    ],
+    "params": [
+      {
+        "name": "q",
+        "value": "Hello%2C%20world!",
+        "isPath": false
+      },
+      {
+        "name": "target",
+        "value": "es",
+        "isPath": false
+      },
+      {
+        "name": "source",
+        "value": "en",
+        "isPath": false
+      }
+    ],
+    "body": {
+      "type": "xml",
+      "raw": "{\n    \"p\":\"Hello\",\n    \"target\": \"en\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]
