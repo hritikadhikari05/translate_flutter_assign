@@ -1,8 +1,6 @@
 import 'dart:developer';
 
-import 'package:country_codes/country_codes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:get/get.dart';
 import 'package:translator_task/controllers/homepage.controller.dart';
 import 'package:translator_task/features/homepage/widgets/languageCard.dart';

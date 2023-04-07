@@ -64,7 +64,9 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                   val.toString());
             }
             //Used for detecting the language
-            widget.homeController.postDetectLanguage(val.toString());
+            if (widget.homeController.currentLanguage.isEmpty) {
+              widget.homeController.postDetectLanguage(val.toString());
+            }
 
             setState(() {
               enteredText = val;

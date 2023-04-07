@@ -7,6 +7,7 @@ class ApiCalls {
   final dio = Dio();
   final baseUrl =
       "https://google-translate1.p.rapidapi.com/language/translate/v2";
+  final apiKey = "f1287c38bfmsh39d4cfc4cabe83ap1ad95bjsnafb5db0b918c";
   //Get language list
   Future<dynamic> getAllLanguages() async {
     try {
@@ -15,8 +16,7 @@ class ApiCalls {
         options: Options(
           headers: {
             'Accept-Encoding': 'application/gzip',
-            'X-RapidAPI-Key':
-                'ff6a77be71msh534a03e2f445601p163bc5jsn5e8a2787e891',
+            'X-RapidAPI-Key': apiKey,
             'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
           },
         ),
@@ -41,15 +41,14 @@ class ApiCalls {
           headers: {
             'content-type': "application/x-www-form-urlencoded",
             'Accept-Encoding': "application/gzip",
-            'X-RapidAPI-Key':
-                "ff6a77be71msh534a03e2f445601p163bc5jsn5e8a2787e891",
+            'X-RapidAPI-Key': apiKey,
             'X-RapidAPI-Host': "google-translate1.p.rapidapi.com",
           },
         ),
       );
       return response;
     } on DioError catch (e) {
-      throw Exception(e);
+      rethrow;
     }
   }
 
@@ -68,8 +67,7 @@ class ApiCalls {
           headers: {
             'content-type': "application/x-www-form-urlencoded",
             'Accept-Encoding': "application/gzip",
-            'X-RapidAPI-Key':
-                "ff6a77be71msh534a03e2f445601p163bc5jsn5e8a2787e891",
+            'X-RapidAPI-Key': apiKey,
             'X-RapidAPI-Host': "google-translate1.p.rapidapi.com",
           },
         ),

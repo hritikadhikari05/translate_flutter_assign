@@ -72,7 +72,7 @@ class HomepageController extends GetxController {
       // log("message api: ${response.data["data"]["detections"][0][0]['language']}");
       return response;
     } catch (e) {
-      throw Exception(e);
+      rethrow;
     }
   }
 
