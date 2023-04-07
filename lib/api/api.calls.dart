@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-class ApiCalls extends GetConnect {
+class ApiCalls {
   final dio = Dio();
   //Get language list
   Future<dynamic> getAllLanguages() async {
