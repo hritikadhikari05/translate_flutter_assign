@@ -12,51 +12,55 @@ class HomePageButtons extends StatelessWidget {
   HomepageController homeController = Get.put(HomepageController());
   @override
   Widget build(BuildContext context) {
-    List language = ["English", "Nepali"];
-    log("message : ${homeController.currentLanguage}");
     return Container(
       margin: const EdgeInsets.only(top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Obx(() => CustomButton(
-                text: homeController.currentLanguage.isEmpty
-                    ? "Current Language"
-                    : homeController.currentLanguage['name'],
-                buttonColor: Color(0xff232527),
-                buttonRadius: 14,
-                buttonHeight: 50,
-                buttonWidth: 150,
-                fontSize: 16,
-                onPressed: () {
-                  if (homeController.arry_languages.isEmpty) {
-                    homeController.getAllLanguages();
-                  }
-                  // homeController.postTranslateLanguage(
-                  //     "en", "ne", "Hello Wor ld");
+          Obx(
+            () => CustomButton(
+              text: homeController.currentLanguage.isEmpty
+                  ? "From"
+                  : homeController.currentLanguage['name'],
+              buttonColor: Color(0xff232527),
+              buttonRadius: 14,
+              buttonHeight: 50,
+              buttonWidth: 150,
+              fontSize: 16,
+              onPressed: () {
+                //Will check the languages array is empty or not
+                if (homeController.arry_languages.isEmpty) {
+                  homeController.getAllLanguages();
+                }
 
-                  showModalBottom(
-                      context, homeController.arry_languages, "current");
-                },
-              )),
+                //Show modal bottom sheet on click
+                showModalBottom(
+                    context, homeController.arry_languages, "current");
+              },
+            ),
+          ),
+          //Arrow Icon
           const Icon(Icons.arrow_forward_ios, color: Colors.white),
-          Obx(() => CustomButton(
-                text: homeController.translateLanguage.isEmpty
-                    ? "Selected Language"
-                    : homeController.translateLanguage['name'],
-                buttonColor: Color(0xff232527),
-                buttonRadius: 14,
-                buttonHeight: 50,
-                buttonWidth: 150,
-                fontSize: 16,
-                onPressed: () {
-                  if (homeController.arry_languages.isEmpty) {
-                    homeController.getAllLanguages();
-                  }
-                  showModalBottom(
-                      context, homeController.arry_languages, "translate");
-                },
-              )),
+          //S
+          Obx(
+            () => CustomButton(
+              text: homeController.translateLanguage.isEmpty
+                  ? "To"
+                  : homeController.translateLanguage['name'],
+              buttonColor: Color(0xff232527),
+              buttonRadius: 14,
+              buttonHeight: 50,
+              buttonWidth: 150,
+              fontSize: 16,
+              onPressed: () {
+                if (homeController.arry_languages.isEmpty) {
+                  homeController.getAllLanguages();
+                }
+                showModalBottom(
+                    context, homeController.arry_languages, "translate");
+              },
+            ),
+          ),
         ],
       ),
     );

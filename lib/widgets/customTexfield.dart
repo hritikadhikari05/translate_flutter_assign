@@ -52,17 +52,19 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           ),
           // initialValue: "current",
           onChanged: (val) {
-            // if (widget.type == "current") {
-            //   widget.homeController.postTranslateLanguage(
-            //       widget.homeController.currentLanguage.isEmpty
-            //           ? "en"
-            //           : widget.homeController.currentLanguage['code'],
-            //       widget.homeController.translateLanguage.isEmpty
-            //           ? "en"
-            //           : widget.homeController.translateLanguage['code'],
-            //       val.toString());
-            // }
-            // widget.homeController.postDetectLanguage(val.toString());
+            //Used for translation
+            if (widget.type == "current") {
+              widget.homeController.postTranslateLanguage(
+                  widget.homeController.currentLanguage.isEmpty
+                      ? "en"
+                      : widget.homeController.currentLanguage['code'],
+                  widget.homeController.translateLanguage.isEmpty
+                      ? "en"
+                      : widget.homeController.translateLanguage['code'],
+                  val.toString());
+            }
+            //Used for detecting the language
+            widget.homeController.postDetectLanguage(val.toString());
 
             setState(() {
               enteredText = val;

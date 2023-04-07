@@ -19,11 +19,11 @@ showModalBottom(context, languages, buttonType) {
   return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
         top: Radius.circular(25.0),
       )),
-      backgroundColor: Color(0xff232527),
+      backgroundColor: const Color(0xff232527),
       builder: (context) {
         return Container(
           padding: const EdgeInsets.all(18),
@@ -36,7 +36,7 @@ showModalBottom(context, languages, buttonType) {
                 color: Colors.white,
                 fontSize: 18,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ModalBottomTextField(),
@@ -46,7 +46,8 @@ showModalBottom(context, languages, buttonType) {
                       child: Container(
                         height: 400,
                         child: homeController.loading.isTrue
-                            ? ShimmerLoadingList()
+                            ? const ShimmerLoadingList()
+                            //If loading is false search query array is empty then all language list will be displayed
                             : homeController.searchQuery.isEmpty
                                 ? ListView.builder(
                                     scrollDirection: Axis.vertical,
@@ -54,13 +55,17 @@ showModalBottom(context, languages, buttonType) {
                                     itemBuilder: (context, index) {
                                       return GestureDetector(
                                           onTap: () {
+                                            //Button type is current language then else
                                             buttonType == "current"
                                                 ? homeController.currentLanguage
                                                     .value = languages[index]
                                                 : homeController
                                                     .translateLanguage
                                                     .value = languages[index];
+
+                                            // Pop the context
                                             Get.back();
+                                            //Clear the search controller
                                             homeController.searchController
                                                 .clear();
                                           },
@@ -94,27 +99,6 @@ showModalBottom(context, languages, buttonType) {
                                       );
                                     },
                                   ),
-
-                        // Column(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: languages.map<Widget>((language) {
-                        //     return Container(
-                        //       margin: EdgeInsets.only(bottom: 10),
-                        //       padding: EdgeInsets.all(10),
-                        //       height: 40,
-                        //       width: double.infinity,
-                        //       decoration: BoxDecoration(
-                        //         color: Colors.grey,
-                        //         borderRadius: BorderRadius.circular(10),
-                        //       ),
-                        //       child: CustomText(
-                        //         text: "${language} ",
-                        //         color: Colors.black,
-                        //         fontSize: 18,
-                        //       ),
-                        //     );
-                        //   }).toList(),
-                        // ),
                       ),
                     ),
                   ))
