@@ -7,6 +7,7 @@ class ApiCalls {
   final dio = Dio();
   final baseUrl =
       "https://google-translate1.p.rapidapi.com/language/translate/v2";
+  final apiKey = "";
   //Get language list
   Future<dynamic> getAllLanguages() async {
     try {
